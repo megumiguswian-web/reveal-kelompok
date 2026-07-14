@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Kelompok PKKMB UNSIKA 2026</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Data hasil ekstraksi dari PDF (Sample)
+        // Rahmat, masukkan sisa datanya di sini seperti sebelumnya
+        const pkkmbData = [
+            { npm: "2610631110048", nama: "SALSABILA LAILA LABIBAH", prodi: "S1 Pendidikan Agama Islam", kelompok: "1" },
+            { npm: "2610631130001", nama: "DINAR IHSAN WARDANI", prodi: "S1 Pendidikan Islam Anak Usia Dini", kelompok: "1" },
+            { npm: "2610631110032", nama: "MUHAMMAD LUTHFIAN HAKIM", prodi: "S1 Pendidikan Agama Islam", kelompok: "1" },
+            { npm: "2610631120023", nama: "MOCHAMAD NAYSTAL AZIRIL", prodi: "S1 Manajemen Pendidikan Islam", kelompok: "1" },
+            { npm: "2610631110012", nama: "ARTIKA NOVIANTI", prodi: "S1 Pendidikan Agama Islam", kelompok: "1" },
+            { npm: "2610631110033", nama: "MUHAMMAD RASYAD", prodi: "S1 Pendidikan Agama Islam", kelompok: "1" },
+            { npm: "2610631060131", nama: "DIMAS NAUFAL FADHILA", prodi: "S1 Pendidikan Bahasa Inggris", kelompok: "10" },
+            { npm: "2610631150088", nama: "WILDAN FIRDAUSI AHLA", prodi: "S1 Teknik Mesin", kelompok: "10" },
+            { npm: "2610631050073", nama: "AGNES MONICA MANIK", prodi: "S1 Pendidikan Matematika", kelompok: "10" },
+            { npm: "2610631050124", nama: "AKMAL AL BAIHAQI", prodi: "S1 Pendidikan Matematika", kelompok: "10" },
+            { npm: "2610631020174", nama: "YASMINE KHAYLILA AULIA", prodi: "S1 Manajemen", kelompok: "10" },
+            { npm: "2610631050091", nama: "RAHMAT DASUKI", prodi: "S1 Pendidikan Matematika", kelompok: "10" },
+            { npm: "2610631250054", nama: "MUHAMMAD TSAQIF AL FIKRI", prodi: "S1 Sistem Informasi", kelompok: "10" },
+            { npm: "2610631380043", nama: "FARAH INGGARTYASTI", prodi: "S1 Pendidikan Pancasila dan Kewarganegaraan", kelompok: "10" },
+            { npm: "2610631010152", nama: "NUR AULIA", prodi: "S1 Ilmu Hukum", kelompok: "10" }
+        ];
+
+        // Data Contact Person per Kelompok
+        const cpData = {
+            "1": { nama: "Alia Revalina", no: "+62 856-9722-4633", wa: "6285697224633" },
+            "2": { nama: "Adeva Rohani", no: "0831-9401-4935", wa: "6283194014935" },
+            "3": { nama: "Nona Fitriani", no: "0857-7082-1543", wa: "6285770821543" },
+            "4": { nama: "Muhammad Fachri Al Fadly", no: "0856-9366-9463", wa: "6285693669463" },
+            "5": { nama: "Afriza", no: "0851-5766-3797", wa: "6285157663797" },
+            "6": { nama: "Aliza", no: "0895-4142-65288", wa: "62895414265288" },
+            "7": { nama: "Nova Wijayanti", no: "0813-8990-8456", wa: "6281389908456" },
+            "8": { nama: "Melly", no: "0857-3261-8227", wa: "6285732618227" },
+            "9": { nama: "Putra", no: "0821-1172-7109", wa: "6282111727109" },
+            "10": { nama: "Ranis", no: "0899-8279-527", wa: "628998279527" },
+            "11": { nama: "Nadia Umi", no: "0881-0123-09379", wa: "62881012309379" },
+            "12": { nama: "Ihza", no: "0857-1775-4205", wa: "6285717754205" },
+            "13": { nama: "Habibie", no: "0851-5653-9274", wa: "6285156539274" },
+            "14": { nama: "Iky", no: "0814-0089-1402", wa: "6281400891402" },
+            "15": { nama: "Dwi", no: "0831-0382-4755", wa: "6283103824755" },
+            "16": { nama: "Salwa Izzati", no: "0899-8031-297", wa: "628998031297" },
+            "17": { nama: "Exshel", no: "0856-9124-7568", wa: "6285691247568" },
+            "18": { nama: "Alfi Rizki Yani", no: "0856-4961-3924", wa: "6285649613924" },
+            "19": { nama: "Angela", no: "0822-5811-5129", wa: "6282258115129" },
+            "20": { nama: "Nia", no: "0812-1043-2938", wa: "6281210432938" },
+            "21": { nama: "Tegar", no: "0877-8151-8966", wa: "6287781518966" }
+        };
+
+        function App() {
+            const [npm, setNpm] = React.useState("");
+            const [namaInput, setNamaInput] = React.useState("");
+            const [result, setResult] = React.useState(null);
+            const [error, setError] = React.useState("");
+            const [isSearched, setIsSearched] = React.useState(false);
+
+            const handleSearch = (e) => {
+                e.preventDefault();
+                setIsSearched(true);
+                
+                const cleanNpm = npm.trim();
+                const cleanNama = namaInput.trim().toLowerCase();
+
+                if (!cleanNpm || !cleanNama) {
+                    setError("NPM dan Nama Lengkap tidak boleh kosong.");
+                    setResult(null);
+                    return;
+                }
+
+                // Cari berdasarkan NPM dan sebagian nama (agar tidak kaku jika typo sedikit)
+                const foundStudent = pkkmbData.find(student => 
+                    student.npm === cleanNpm && 
+                    student.nama.toLowerCase().includes(cleanNama)
+                );
+                
+                if (foundStudent) {
+                    setResult(foundStudent);
+                    setError("");
+                } else {
+                    setResult(null);
+                    setError("Data tidak ditemukan atau Nama tidak cocok dengan NPM yang dimasukkan.");
+                }
+            };
+
+            const handleClear = () => {
+                setNpm("");
+                setNamaInput("");
+                setResult(null);
+                setError("");
+                setIsSearched(false);
+            };
+
+            // Icon WhatsApp SVG
+            const WaIcon = () => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+                </svg>
+            );
+
+            return (
+                <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden bg-gradient-to-br from-red-900 to-red-950 py-12">
+                    {/* Background decorations */}
+                    <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-red-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                    <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+
+                    <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden z-10 border border-white/20 my-auto">
+                        {/* Header Section */}
+                        <div className="bg-gradient-to-r from-red-800 to-red-700 p-8 text-center text-white relative">
+                            <h1 className="text-2xl font-bold mb-2 tracking-tight">Portal PKKMB 2026</h1>
+                            <p className="text-red-100 text-sm font-medium">Universitas Singaperbangsa Karawang</p>
+                        </div>
+
+                        {/* Search Section */}
+                        <div className="p-6 sm:p-8">
+                            {!isSearched || error ? (
+                                <form onSubmit={handleSearch} className="space-y-5 animate-in fade-in duration-300">
+                                    {error && (
+                                        <div className="p-3 bg-red-50 border border-red-100 rounded-lg text-center">
+                                            <p className="text-red-600 font-medium text-sm">{error}</p>
+                                        </div>
+                                    )}
+                                    
+                                    <div>
+                                        <label htmlFor="npm" className="block text-sm font-semibold text-slate-700 mb-2">
+                                            Nomor Pokok Mahasiswa (NPM)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="npm"
+                                            value={npm}
+                                            onChange={(e) => setNpm(e.target.value)}
+                                            placeholder="Contoh: 2610631110048"
+                                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all outline-none text-slate-700 font-medium placeholder-slate-400"
+                                            maxLength="15"
+                                            pattern="[0-9]*"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="nama" className="block text-sm font-semibold text-slate-700 mb-2">
+                                            Nama Lengkap
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="nama"
+                                            value={namaInput}
+                                            onChange={(e) => setNamaInput(e.target.value)}
+                                            placeholder="Masukkan nama lengkap kamu"
+                                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all outline-none text-slate-700 font-medium placeholder-slate-400"
+                                        />
+                                        <p className="text-[10px] text-slate-400 mt-1">*Cukup ketik sebagian nama jika ragu dengan ejaannya.</p>
+                                    </div>
+                                    
+                                    <button
+                                        type="submit"
+                                        className="w-full mt-2 bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-4 rounded-xl transition-colors duration-200 shadow-md shadow-red-900/20 active:scale-[0.98]"
+                                    >
+                                        Cari Kelompok
+                                    </button>
+                                </form>
+                            ) : null}
+
+                            {/* Result Area */}
+                            {isSearched && result && (
+                                <div className="animate-in fade-in zoom-in-95 duration-300">
+                                    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-60"></div>
+                                        
+                                        <div className="flex justify-between items-center mb-5 relative z-10">
+                                            <p className="text-xs font-bold text-red-600 uppercase tracking-wider">Hasil Pencarian</p>
+                                            <button onClick={handleClear} className="text-xs font-semibold text-slate-400 hover:text-red-600 underline">
+                                                Cari Lagi
+                                            </button>
+                                        </div>
+                                        
+                                        <div className="space-y-4 relative z-10">
+                                            <div>
+                                                <p className="text-xs text-slate-500 font-medium">Nama Mahasiswa</p>
+                                                <p className="text-lg font-bold text-slate-800 leading-tight">{result.nama}</p>
+                                            </div>
+                                            
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <p className="text-xs text-slate-500 font-medium">NPM</p>
+                                                    <p className="text-sm font-semibold text-slate-700">{result.npm}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-xs text-slate-500 font-medium">Program Studi</p>
+                                                    <p className="text-sm font-semibold text-slate-700">{result.prodi}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-4 pt-4 border-t border-slate-100">
+                                                <p className="text-xs text-center text-slate-500 font-medium mb-2">Selamat! Kamu tergabung dalam</p>
+                                                <div className="bg-red-700 text-white rounded-xl py-4 px-4 text-center shadow-inner mb-4">
+                                                    <span className="text-sm font-medium opacity-90 block mb-1">KELOMPOK</span>
+                                                    <span className="block text-4xl font-extrabold">{result.kelompok}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Contact Person Card */}
+                                    {cpData[result.kelompok] && (
+                                        <div className="mt-4 bg-green-50 border border-green-200 rounded-2xl p-5 shadow-sm text-center">
+                                            <p className="text-sm font-semibold text-slate-700 mb-2">
+                                                Langkah Selanjutnya:
+                                            </p>
+                                            <p className="text-xs text-slate-600 mb-4">
+                                                Silakan chat Akang/Teteh Contact Person (CP) kelompokmu untuk bergabung ke dalam grup ya!
+                                            </p>
+                                            
+                                            <div className="bg-white rounded-xl p-3 mb-4 border border-green-100">
+                                                <p className="text-xs text-slate-400 font-medium">Nama CP Kelompok {result.kelompok}</p>
+                                                <p className="font-bold text-slate-800">{cpData[result.kelompok].nama}</p>
+                                                <p className="text-sm text-slate-600 font-medium">{cpData[result.kelompok].no}</p>
+                                            </div>
+
+                                            <a 
+                                                href={`https://wa.me/${cpData[result.kelompok].wa}?text=Halo%20Kak%20${encodeURIComponent(cpData[result.kelompok].nama)},%20perkenalkan%20saya%20${encodeURIComponent(result.nama)}%20mahasiswa%20baru%20anggota%20Kelompok%20${result.kelompok}.%20Mohon%20izin%20bergabung%20dengan%20grup%20ya%20Kak.%20Terima%20kasih!`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center justify-center w-full bg-[#25D366] hover:bg-[#1DA851] text-white font-bold py-3 px-4 rounded-xl transition-colors shadow-md shadow-green-900/20 active:scale-[0.98]"
+                                            >
+                                                <WaIcon />
+                                                Chat WhatsApp Sekarang
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    
+                    <p className="mt-6 text-red-200/60 text-xs font-medium z-10">
+                        &copy; 2026 Kepanitiaan PKKMB UNSIKA
+                    </p>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
